@@ -96,8 +96,8 @@ create table Travel (
 	idBoat int,
 	idTravelRoute int,
 	idPerson int,
-	StartDate datetime,
-	EndDate datetime,
+	startDate datetime,
+	endDate datetime,
 	descriptionTravel varchar(250)
 );
 go
@@ -201,7 +201,7 @@ go
 create table CabinType (
 	idCabinType int identity (1,1) primary key,
 	descriptionCabinType varchar(250),
-	capacityCabynType int
+	capacityCabinType int
 );
 go
 
