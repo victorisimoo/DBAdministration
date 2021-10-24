@@ -167,6 +167,6 @@ go
 create procedure sp_AddCabinType @descriptionCabinType varchar(250), @capacityCabinType int
 as
 begin
-	insert into CabinType (descriptionCabinType, capacityCabynType) values (@descriptionCabinType, @capacityCabinType)
+	insert into CabinType (descriptionCabinType, capacityCabinType) values (@descriptionCabinType, @capacityCabinType)
 end
 go
