@@ -279,6 +279,3 @@ go
 
 alter table Boat add constraint FK_CapacityBoat_Boat foreign key (idCapacityBoat) references CapacityBoat (idCapacityBoat)
 go
-
-alter table Person add Status_Confirmation int
-go
