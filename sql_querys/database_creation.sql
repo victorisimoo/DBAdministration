@@ -54,7 +54,7 @@ go
 create table DestinationCity (
 	idDestination int identity (1,1) primary key,
 	idCountry int,
-	nameCity int,
+	nameCity varchar(150),
 	latitude varchar(150),
 	longitude varchar(150)
 );
@@ -156,9 +156,9 @@ go
 create table ReservationQueue (
 	idReservationQueue int identity (1,1) primary key,
 	idTravelLogBook int,
+	idPerson int,
 	statusReservation int,
-	dayOfReservation date,
-	idPerson int
+	dayOfReservation date
 );
 go
 
