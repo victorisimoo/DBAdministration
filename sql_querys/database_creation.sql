@@ -1,4 +1,3 @@
------ | First proyect | -----
 ----- | Database creation script | -----
 create database DBBoatAdministration
 go
@@ -178,7 +177,7 @@ create table Reservation (
 	idChannelReservation int,
 	reservationDate date,
 	reservationExpirationDate date,
-	reservationStatus bit
+	reservationStatus int
 );
 go
 
