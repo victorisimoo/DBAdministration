@@ -1,5 +1,7 @@
---Procedimiento de ingreso de N clientes, mandar a llamar dentro de un cursor.
 
+USE DBBoatAdministration
+GO
+--Procedimiento de ingreso de N clientes, mandar a llamar dentro de un cursor.
 create or alter procedure dbo.Person_usp_Register @idPersonType int, @idBloodType int, @idCountry int, @identificationNumber varchar(25), @namePerson varchar(150), @lastnamePerson varchar(150), @dateOfBirth date, @method int as
 begin
 
@@ -23,8 +25,8 @@ else if(@method = 1)
 		begin transaction
 		if exists(Select * from Person where identificationNumber = @identificationNumber)
 		begin 
-				insert into Person values (@idPersonType, @idBloodType, @idCountry, @identificationNumber, @namePerson, @lastnamePerson, @dateOfBirth, 0)
-				print ('Esta repetida la Persona')
+			insert into Person values (@idPersonType, @idBloodType, @idCountry, @identificationNumber, @namePerson, @lastnamePerson, @dateOfBirth, 0)
+			print ('Esta repetida la Persona')
 		end
 		else
 		begin
@@ -33,12 +35,7 @@ else if(@method = 1)
 			commit transaction
 		end
 	end
-
-
 end;
-
---DELETE FROM Person WHERE idPerson = 1;
---DBCC CHECKIDENT ('Person', RESEED, 0)
 
 
 
