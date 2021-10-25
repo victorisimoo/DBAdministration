@@ -3,7 +3,7 @@ USE DBBoatAdministration
 GO
 --Procedimiento de ingreso de N clientes
 
-create or alter procedure dbo.Person_usp_Register @method int
+create or alter procedure sp_Register @method int
 as
 begin
 	create table #tempPersonR
@@ -24,7 +24,7 @@ begin
 		ROWTERMINATOR = '\n',   --Use to shift the control to next row
 		TABLOCK
 	)
-	--Revisa si usara el metodo de rollback masivo
+	--Revisa si usara el metodo de rollback masivo, si este lo es inicia la transaccion antes del cursor, si no no lo abre.
 	if(@method = 0)
 	begin
 	BEGIN TRANSACTION
@@ -44,13 +44,13 @@ begin
 	WHILE @@FETCH_STATUS = 0
 	begin 
 		BEGIN TRY 
-			--Revisa si usara el metodo de rollback individual
+			-- Si es el otro metodo de continuar sin confirmar, inicia la transaccion de manera individual.
 			if(@method = 1)
 			begin
 				BEGIN TRANSACTION
 				if exists(Select * from Person where identificationNumber = @identificationNumber)
 				begin
-				--Rollback individual
+				--Continua sin confirmar, simplemente haciendo rollback a la persona repetida.
 					rollback transaction
 					print ('Esta repetido la Persona')
 				end
@@ -65,7 +65,7 @@ begin
 			BEGIN
 				if exists(Select * from Person where identificationNumber = @identificationNumber)
 				begin
-				--Rollback de  todos
+				--Realiza el rollback sobre todas las personas insertadas.
 					rollback transaction
 					print ('Esta repetido la Persona')
 				end
