@@ -15,7 +15,7 @@ begin
 								where idReservation = @ReservationID)
 		if(@DateReservation - 1 >= (convert(date ,getdate())))
 		begin
-			--Guarda el camarote y el viaje
+			--Guarda el camarote, la bitacora del viaje y el tipo de camarote
 			declare @IDCabintype int, @IDTravellogbook int, @IDCabin int
 			set @IDCabintype = (select idCabinType from Cabin C
 								inner join Reservation R
@@ -37,8 +37,13 @@ begin
 				declare @IDChannel int, @ReservationDay date, @IDPerson int
 				set @IDPerson = (select idPerson from ReservationQueue where  idReservationQueue = @ReservationID);
 				set @IDChannel = (select idChannelReservation from ReservationQueue where  idReservationQueue = @ReservationID);
+				set @ReservationDay = (select dayOfReservation from ReservationQueue where  idReservationQueue = @ReservationID);
 				--Inserta en Reservación la persona que estaba en cola
 				exec sp_AddReservation @idTravelLogBook = @IDTravellogbook, @idPerson = @IDPerson, @idCabin = @IDCabin, @idChannelReservation = @IDChannel, @reservationDate = @ReservationDay, @reservationExpirationDate = @DateReservation, @reservationStatus = 1
+				--Actualiza el estado de la persona que se encontraba en la cola
+				update ReservationQueue
+				set statusReservation = 1
+				where idReservationQueue = @ReservationID;
 			end
 			print('La cancelación ha sido un exito')
 		end
