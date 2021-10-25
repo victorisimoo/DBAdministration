@@ -3,6 +3,7 @@
 ----- | Choice of database | -----
 use DBBoatAdministration
 go
+
 ----- | Stored process to add boats | -----
 create procedure sp_AddBoat @idTypeBoat int, @idCapacityBoat int, @imoBoat varchar(50), @nameBoat varchar(150), @widthBoat int, @lenghtBoat int, @depthBoat int
 as
