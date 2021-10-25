@@ -124,10 +124,10 @@ end
 go
 
 ----- | Stored process to add reservation queue | -----
-create procedure sp_AddReservationQueue @idTravelLogBook int, @statusReservation int, @dayOfReservation date, @idPerson int
+create procedure sp_AddReservationQueue @idTravelLogBook int, @statusReservation int, @dayOfReservation date, @idPerson int, @idReservationChannel int, @idCabinType int
 as
 begin
-	insert into ReservationQueue (idTravelLogBook, statusReservation, dayOfReservation, idPerson) values (@idTravelLogBook, @statusReservation, @dayOfReservation, @idPerson)
+	insert into ReservationQueue (idTravelLogBook, statusReservation, dayOfReservation, idPerson, idChannelReservation, idCabinType) values (@idTravelLogBook, @statusReservation, @dayOfReservation, @idPerson, @idReservationChannel, @idCabinType)
 end
 go
 
@@ -140,7 +140,7 @@ end
 go
 
 ----- | Stored process to add reservation | -----
-create procedure sp_AddReservation @idTravelLogBook int, @idPerson int, @idCabin int, @idChannelReservation int, @reservationDate date, @reservationExpirationDate date, @reservationStatus bit
+create procedure sp_AddReservation @idTravelLogBook int, @idPerson int, @idCabin int, @idChannelReservation int, @reservationDate date, @reservationExpirationDate date, @reservationStatus int
 as
 begin
 	insert into Reservation (idTravelLogBook, idPerson, idCabin, idChannelReservation, reservationDate, reservationExpirationDate, reservationStatus) values (@idTravelLogBook, @idPerson, @idCabin, @idChannelReservation, @reservationDate, @reservationExpirationDate, @reservationStatus)

@@ -157,7 +157,9 @@ create table ReservationQueue (
 	idTravelLogBook int,
 	idPerson int,
 	statusReservation int,
-	dayOfReservation date
+	dayOfReservation date,
+	idChannelReservation int,
+	idCabinType int
 );
 go
 
