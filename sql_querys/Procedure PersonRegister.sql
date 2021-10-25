@@ -56,8 +56,8 @@ begin
 				end
 				ELSE
 				begin
-					insert into Person (idPersonType, idBloodType, idCountry, identificationNumber, namePerson, lastnamePerson, dateOfBirth) 
-					values (@idPersonType, @idBloodType, @idCountry, @identificationNumber, @namePerson, @lastnamePerson, @dateOfBirth)
+					exec sp_AddPerson @idPersonType = @idPersonType, @idBloodType = @idBloodType, @idCountry = @idCountry, @identificationNumber =@identificationNumber, @namePerson = @namePerson, 
+					@lastnamePerson = @lastnamePerson, @dateOfBirth = @dateOfBirth
 					commit;
 				end
 			end	
@@ -71,8 +71,8 @@ begin
 				end
 				ELSE
 				begin
-					insert into Person (idPersonType, idBloodType, idCountry, identificationNumber, namePerson, lastnamePerson, dateOfBirth) 
-					values (@idPersonType, @idBloodType, @idCountry, @identificationNumber, @namePerson, @lastnamePerson, @dateOfBirth)
+					exec sp_AddPerson @idPersonType = @idPersonType, @idBloodType = @idBloodType, @idCountry = @idCountry, @identificationNumber =@identificationNumber, @namePerson = @namePerson, 
+					@lastnamePerson = @lastnamePerson, @dateOfBirth = @dateOfBirth
 					commit;
 				end
 			END
