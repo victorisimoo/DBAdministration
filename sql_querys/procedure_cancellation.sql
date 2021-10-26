@@ -1,3 +1,5 @@
+USE DBBoatAdministration
+GO
 ----- | Cancellation of the reservation | -----
 create or alter procedure sp_CancelReservation @ReservationID int
 as
