@@ -62,6 +62,7 @@ Order by idTravelRoute
 END
 
 
+--exec usp_DebarkingCount @Date = '2021-07-07 18:06:46.000'
 
 
 
@@ -78,6 +79,8 @@ group by month(dayOfReservation), year(dayOfReservation)
 order by year(dayOfReservation), month(dayOfReservation)
 END
 
+--Exec usp_CheckQueue @Date = '2021-10-26'
+
 CREATE OR ALTER PROCEDURE usp_PilotReport1 @Date Date 
 AS
 BEGIN
@@ -90,8 +93,10 @@ where pr.idPersonType = 1 and month(tr.startDate) >=  month(getdate()) - 6 and m
 group by pr.idPerson,  pr.namePerson
 END
 
+--exec usp_PilotReport1 @Date = '2021-10-08'
 
-CREATE OR ALTER PROCEDURE usp_PilotReport2 @Date Date 
+
+CREATE OR ALTER PROCEDURE usp_PilotReport2 
 AS
 BEGIN
 --Cuantas horas y millas náuticas lleva acumulado la tripulación tipo capitán en Sus últimos 10 vuelos
@@ -105,5 +110,7 @@ from (
 where T.rn <= 10
 group by T.idPerson
 END
+
+--exec usp_PilotReport2 
 
 
