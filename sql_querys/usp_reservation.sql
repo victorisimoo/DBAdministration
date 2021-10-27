@@ -1,6 +1,48 @@
 USE DBBoatAdministration
 GO
 
+Select * From Person
+Select * From Boat
+Select * From CabinType
+Select * From Cabin
+Select * From Reservation
+Select * From ReservationQueue
+Select * From TravelLogBook
+Select * From Travel
+
+exec sp_AddTravel @idDeparture = 6, @idDestination = 5, @idBoat = 41, @idTravelRoute = 100, @idPerson = 10, @startDate = '2021-01-01', @endDate = '2021-02-01', @descriptionTravel = 'Hoolaaa'
+exec sp_AddTravelLogBook @idTravel = 51
+
+
+--Crea cabinas del mismo tipo
+exec sp_AddCabin @idBoat = 41 , @idCabinType = 2, @levelCabin = 3 
+exec sp_AddCabin @idBoat = 41 , @idCabinType = 2, @levelCabin = 3
+exec sp_AddCabin @idBoat = 41 , @idCabinType = 2, @levelCabin = 2
+exec sp_AddCabin @idBoat = 41 , @idCabinType = 2, @levelCabin = 2
+--101 a 104
+
+--crea una cabina que es unica 107
+exec sp_AddCabin @idBoat = 41 , @idCabinType = 12, @levelCabin = 2
+
+ --ingresa una persona usando la cabina 101 y confirmada
+exec sp_AddReservation @idTravelLogBook = 51, @idPerson = 86, @idCabin = 101, @idChannelReservation = 2, @reservationDate = '2021-01-01', @reservationExpirationDate = '2021-02-01', @reservationStatus = 1
+ 
+-- ingresa una persona que no tiene asociado a nadie
+exec usp_reservation @cola = 1, @Delay = '00:00:02', @idBitacora = 51, @idPersona = 10, @idCabina = 103, @idCanal = 2, @Fecha = '2021-01-01', @FechadeExpiracion = '2021-02-01'
+
+-- ingresa una persona que quiera estar en la misma cabina y en el mismo viaje por lo tanto le asignan la 102
+exec usp_reservation @cola = 1, @Delay = '00:00:02', @idBitacora = 51, @idPersona = 2, @idCabina = 101, @idCanal = 2, @Fecha = '2021-01-01', @FechadeExpiracion = '2021-02-01'
+
+-- ingresa una persona que quiera estar en la misma cabina y en el mismo viaje pero es cabina unica 
+exec usp_reservation @cola = 1, @Delay = '00:00:02', @idBitacora = 51, @idPersona = 3, @idCabina = 107, @idCanal = 2, @Fecha = '2021-01-01', @FechadeExpiracion = '2021-02-01'
+
+-- ingresa una persona que quiera estar en la misma cabina y en el mismo viaje pero es cabina unica y ya no hay espacio por consiguiente desea estar en cola
+exec usp_reservation @cola = 1, @Delay = '00:00:02', @idBitacora = 51, @idPersona = 4, @idCabina = 107, @idCanal = 2, @Fecha = '2021-01-01', @FechadeExpiracion = '2021-02-01'
+
+-- ingresa una persona que quiera estar en la misma cabina y en el mismo viaje pero es cabina unica y ya no hay espacio por consiguiente desea no estar en la cola
+exec usp_reservation @cola = 0, @Delay = '00:00:02', @idBitacora = 51, @idPersona = 5, @idCabina = 107, @idCanal = 2, @Fecha = '2021-01-01', @FechadeExpiracion = '2021-02-01'
+
+
 create or alter procedure usp_reservation @cola int, @Delay varchar(12), @idBitacora int, @idPersona int, @idCabina int, @idCanal int, @Fecha date, @FechadeExpiracion date  AS
 begin
 	declare @existsReservation int,
@@ -58,7 +100,7 @@ begin
 				else
 					begin
 					--La persona no quiere estar en cola rollback;
-						print('Gracias por elegirnos')
+						print('Usted no quiere estar en cola. Gracias por elegirnos')
 						rollback;
 					end
 			end
@@ -77,7 +119,7 @@ begin
 				end
 				else
 				begin
-					print('Gracias por elegirnos')
+					print('Usted cancelo. Gracias por elegirnos')
 					--Cancelo
 					rollback;
 				end
@@ -100,7 +142,7 @@ begin
 				end
 				else
 				begin
-					print('Gracias por elegirnos')
+					print('Usted Cancelo. Gracias por elegirnos')
 					--Cancelo
 					rollback;
 				end
