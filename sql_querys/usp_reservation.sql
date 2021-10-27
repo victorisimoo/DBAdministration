@@ -105,7 +105,6 @@ begin
 					rollback;
 				end
 			end
-
-
 	end
+	go
 

@@ -15,7 +15,7 @@ begin
 								inner join Reservation R
 								on R.idTravelLogBook = TL.idTravelLogBook
 								where idReservation = @ReservationID)
-		if(@DateReservation - 1 >= (convert(date ,getdate())))
+		if(@DateReservation >= (convert(date ,getdate())))
 		begin
 			--Guarda el camarote, la bitacora del viaje y el tipo de camarote
 			declare @IDCabintype int, @IDTravellogbook int, @IDCabin int
@@ -35,7 +35,7 @@ begin
 			begin
 				--Asigna variables de apoyo para la inserción de la persona en cola en reservación
 				set @ReservationID = (select top 1 idReservationQueue from ReservationQueue where idTravelLogBook = @IDTravellogbook and idCabinType = @IDCabintype order by dayOfReservation)
-				set @DateReservation = @DateReservation -1;
+				set @DateReservation = @DateReservation;
 				declare @IDChannel int, @ReservationDay date, @IDPerson int
 				set @IDPerson = (select idPerson from ReservationQueue where  idReservationQueue = @ReservationID);
 				set @IDChannel = (select idChannelReservation from ReservationQueue where  idReservationQueue = @ReservationID);
@@ -59,3 +59,4 @@ begin
 		print('La reservación ingresada no existe.')
 	end
 end
+go

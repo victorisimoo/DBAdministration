@@ -9,7 +9,7 @@ SELECT reservationDate,COUNT(1) as Reservaciones FROM Reservation
 WHERE reservationDate = @Date
 GROUP BY reservationDate
 END
-
+go
 --exec usp_ReservationsPerDay @Date = '2021-10-08'
 
 CREATE OR ALTER PROCEDURE usp_ReservationsPerChannel @Date Date 
@@ -20,7 +20,7 @@ SELECT idChannelReservation,COUNT(1) as Reservaciones FROM Reservation
 WHERE reservationDate = @Date
 GROUP BY idChannelReservation
 END
-
+go
 --exec usp_ReservationsPerChannel @Date = '2021-10-08'
 
 CREATE OR ALTER PROCEDURE usp_TravelReport @Date Datetime 
@@ -45,7 +45,7 @@ SELECT trav.idTravel
 		GROUP BY trav.idTravel, maxPassagers
 		HAVING SUM(tipocabina.capacityCabinType) > maxPassagers*0.85 
 END
-
+go
 
 CREATE OR ALTER PROCEDURE usp_DebarkingCount @Date Datetime 
 AS
@@ -60,7 +60,7 @@ HAVING COUNT(idTravelRoute) >= 3) AND tr.startDate = @Date
 GROUP BY idDebarking, db.idTravelRoute,dayDebarking,hourDebarking,tr.startDate,tr.endDate
 Order by idTravelRoute
 END
-
+go
 
 --exec usp_DebarkingCount @Date = '2021-07-07 18:06:46.000'
 
@@ -78,6 +78,7 @@ where statusReservation = 0 and dayOfReservation <= @Date
 group by month(dayOfReservation), year(dayOfReservation) 
 order by year(dayOfReservation), month(dayOfReservation)
 END
+go
 
 --Exec usp_CheckQueue @Date = '2021-10-26'
 
@@ -92,7 +93,7 @@ from Travel tr inner join Person pr on pr.idPerson = tr.idPerson
 where pr.idPersonType = 1 and month(tr.startDate) >=  month(getdate()) - 6 and month(tr.startDate) <= month(getdate()) and year(tr.startDate) = year(getdate())
 group by pr.idPerson,  pr.namePerson
 END
-
+go
 --exec usp_PilotReport1 @Date = '2021-10-08'
 
 
@@ -110,7 +111,7 @@ from (
 where T.rn <= 10
 group by T.idPerson
 END
-
+go
 --exec usp_PilotReport2 
 
 

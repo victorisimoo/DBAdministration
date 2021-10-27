@@ -1,5 +1,10 @@
 ----- | Processes for loading data into tables from .csv files | -----
 ----- | Inserting the Boat table | -----
+
+----- | Database selection | -----
+use DBBoatAdministration
+go
+
 bulk
 insert Boat
 from 'C:\Users\VICTORNOEHERNANDEZME\Documents\Universidad\Sexto semestre\Base de datos II\proyects\DBAdministration\data_files\Boat_data.csv'
