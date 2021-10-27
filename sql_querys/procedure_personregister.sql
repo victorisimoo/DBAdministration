@@ -30,15 +30,6 @@ begin
 		dateOfBirth date
 	)
 
-	--BULK INSERT #tempPersonR
-	--FROM 'filepath'
-	--WITH
-	--(
-	--	FIELDTERMINATOR = ',',  --CSV field delimiter
-	--	ROWTERMINATOR = '\n',   --Use to shift the control to next row
-	--	TABLOCK
-	--)
-
 	Declare	
 		 @idPersonType int, 
 		 @idBloodType int, 
@@ -93,15 +84,6 @@ begin
 		lastnamePerson varchar(150),
 		dateOfBirth date
 	)
-
-		--BULK INSERT #tempPersonR
-	--FROM 'filepath'
-	--WITH
-	--(
-	--	FIELDTERMINATOR = ',',  --CSV field delimiter
-	--	ROWTERMINATOR = '\n',   --Use to shift the control to next row
-	--	TABLOCK
-	--)
 
 	Declare	
 		 @idPersonType int, 
